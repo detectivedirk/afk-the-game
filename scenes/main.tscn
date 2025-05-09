@@ -1,3 +1,27 @@
-[gd_scene format=3 uid="uid://db4yaualf3xtb"]
+[gd_scene load_steps=5 format=3 uid="uid://db4yaualf3xtb"]
+
+[ext_resource type="Material" uid="uid://bn2xx3tp7iswi" path="res://materials/plane.tres" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dccytfbr2n8nq" path="res://scenes/player.tscn" id="2_0wfyh"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0wfyh"]
+material = ExtResource("1_o5qli")
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wfyh"]
+size = Vector3(100, 1, 100)
 
 [node name="main" type="Node3D"]
+
+[node name="plane" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_0wfyh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plane/StaticBody3D"]
+shape = SubResource("BoxShape3D_0wfyh")
+
+[node name="player" parent="." instance=ExtResource("2_0wfyh")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.849193, 0.528083, 0, -0.528083, 0.849193, 0, 2.22248, 7.28112)
