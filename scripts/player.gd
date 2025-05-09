@@ -7,7 +7,7 @@ var speed = 10.0
 
 var speed_boost = 1
 
-const JUMP_HEIGHT = 1
+const JUMP_HEIGHT = 3
 const JUMP_TIME_TO_PEAK = 0.35
 const JUMP_TIME_TO_DESCENT = 0.25
 
@@ -27,26 +27,31 @@ var camera_distance: float = 1
 	
 func get_jump_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
+	
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-	pass
+	if is_multiplayer_authority():
+		camera.get_child(0).make_current()
 	
 func _process(delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
-	_move_player(delta)
+	if is_multiplayer_authority():
+		_move_player(delta)
 	
 func _move_player(delta: float):
-	var movement_vector: Vector2
+	var movement_vector = Vector2.ZERO
 	if Input.is_action_pressed("forward"):
-		movement_vector = Vector2.UP
-	elif Input.is_action_pressed("left"):
-		movement_vector = Vector2.LEFT
-	elif Input.is_action_pressed("back"):
-		movement_vector = Vector2.DOWN
-	elif Input.is_action_pressed("right"):
-		movement_vector = Vector2.RIGHT
+		movement_vector += Vector2.UP
+	if Input.is_action_pressed("left"):
+		movement_vector += Vector2.LEFT
+	if Input.is_action_pressed("back"):
+		movement_vector += Vector2.DOWN
+	if Input.is_action_pressed("right"):
+		movement_vector += Vector2.RIGHT
 		
 	movement_vector = movement_vector.rotated(-camera.rotation.y) * speed	
 	

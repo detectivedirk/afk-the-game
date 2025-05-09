@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bpridunwyeu23"]
+
+[node name="message" type="RichTextLabel"]
+offset_right = 300.0
+offset_bottom = 24.0
+text = "test message
+"
+scroll_active = false
