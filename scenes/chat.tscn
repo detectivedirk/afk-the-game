@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://blno3bw332abc"]
+
+[ext_resource type="Script" uid="uid://duqnxmcwd0qlp" path="res://scripts/chat.gd" id="1_4o336"]
+[ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="3_sbgww"]
+
+[node name="chat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 140.0
+offset_bottom = 111.0
+script = ExtResource("1_4o336")
+
+[node name="panel" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 80.0
+color = Color(0, 0, 0, 0.12549)
+
+[node name="messages" type="Control" parent="panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="input" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 140.0
+offset_bottom = -15.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme = ExtResource("3_sbgww")
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+flat = true
+caret_blink = true
+
+[connection signal="text_submitted" from="input" to="." method="_on_input_text_submitted"]

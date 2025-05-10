@@ -1,8 +1,12 @@
-[gd_scene format=3 uid="uid://bpridunwyeu23"]
+[gd_scene load_steps=2 format=3 uid="uid://bpridunwyeu23"]
+
+[ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="1_11qlq"]
 
 [node name="message" type="RichTextLabel"]
-offset_right = 300.0
-offset_bottom = 24.0
-text = "test message
+offset_right = 140.0
+offset_bottom = 8.0
+theme = ExtResource("1_11qlq")
+text = "hello
+
 "
 scroll_active = false

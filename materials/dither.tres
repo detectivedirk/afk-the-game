@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c5arw4cwdl63h"]
+
+[ext_resource type="Shader" uid="uid://dwqmlutv0hd2x" path="res://shaders/dither_color.gdshader" id="1_bv4bb"]
+[ext_resource type="Texture2D" uid="uid://glgqcj2sbf7m" path="res://shaders/bayer16tile2.png" id="2_bv4bb"]
+
+[resource]
+shader = ExtResource("1_bv4bb")
+shader_parameter/bayer = ExtResource("2_bv4bb")
+shader_parameter/DitherStrength = 0.1
+shader_parameter/ColorDepth = 16.0
+shader_parameter/world_scale = 1.0

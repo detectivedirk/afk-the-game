@@ -20,8 +20,8 @@ func msg_rpc(data):
 	new_message.text = data
 	messages.call_deferred("add_child", new_message)
 	
-	new_message.position.y = (messages.get_child_count() - 1) * 24
+	new_message.position.y = (messages.get_child_count() - 1) * 8
 	
-	messages.position.y = 140 - messages.get_child_count() * 24
+	messages.position.y = 74 - messages.get_child_count() * 8
 
 	

@@ -18,4 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _move_camera(event: InputEventMouseMotion):
 	rotation.y -= event.relative.x * sensibility
+	rotation.y = wrapf(rotation.y, 0.0, TAU)
+	
 	rotation.x -= event.relative.y * sensibility
+	rotation.x = clamp(rotation.x, -PI/2, PI/4)

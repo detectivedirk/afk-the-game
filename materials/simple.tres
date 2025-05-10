@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bch4uf7m0nyoc"]
+
+[ext_resource type="FontFile" uid="uid://bjej3eku6rwsg" path="res://fonts/small_pixel.ttf" id="1_l13tn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbgww"]
+
+[resource]
+default_font = ExtResource("1_l13tn")
+default_font_size = 8
+LineEdit/font_sizes/font_size = 8
+LineEdit/fonts/font = ExtResource("1_l13tn")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_sbgww")
+LineEdit/styles/normal = null

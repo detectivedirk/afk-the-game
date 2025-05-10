@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://405kff0j7lgl"]
+
+[ext_resource type="Script" uid="uid://dexwyi2luixu0" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://donh1adn2suff" path="res://fonts/MMXSNES.ttf" id="2_vjb58"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqeox")
+
+[node name="canvas" type="CanvasLayer" parent="."]
+
+[node name="buttons" type="Control" parent="canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="host" type="Button" parent="canvas/buttons"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 117.0
+offset_right = 135.0
+offset_bottom = 137.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_vjb58")
+text = "HOST
+"
+
+[node name="join" type="Button" parent="canvas/buttons"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 139.0
+offset_right = 135.0
+offset_bottom = 159.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_vjb58")
+text = "JOIN
+"
+
+[node name="address" type="LineEdit" parent="canvas/buttons"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 164.0
+offset_right = 136.0
+offset_bottom = 195.0
+theme_override_fonts/font = ExtResource("2_vjb58")
+placeholder_text = "ADDRESS"
+
+[connection signal="pressed" from="canvas/buttons/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="canvas/buttons/join" to="." method="_on_join_pressed"]

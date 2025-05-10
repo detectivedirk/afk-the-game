@@ -42,6 +42,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("PrismMesh_qhqgy")
 skeleton = NodePath("../..")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.396525, 0)
+light_color = Color(0.937595, 0.756286, 0, 1)
+light_energy = 2.0
+omni_range = 10.0
+omni_attenuation = 0.262
+
 [node name="collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920229, 0)
 shape = SubResource("CapsuleShape3D_sugp2")
