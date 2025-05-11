@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ulyurujt7l3g"]
+
+[ext_resource type="Shader" uid="uid://rl2cfqqi0duv" path="res://shaders/general.gdshader" id="1_184ob"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_184ob")
+shader_parameter/bias = 0.88
+shader_parameter/colorNum = 32.0
+shader_parameter/fog_color = Color(0.3784, 0.41882, 0.43, 1)
+shader_parameter/fog_distance_min = 4.75e-08
+shader_parameter/fog_distance_max = 0.01

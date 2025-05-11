@@ -7,5 +7,5 @@
 shader = ExtResource("1_bv4bb")
 shader_parameter/bayer = ExtResource("2_bv4bb")
 shader_parameter/DitherStrength = 0.1
-shader_parameter/ColorDepth = 16.0
+shader_parameter/ColorDepth = 32.0
 shader_parameter/world_scale = 1.0

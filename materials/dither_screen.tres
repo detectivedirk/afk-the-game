@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b8mqfulrgkui8"]
+
+[ext_resource type="Shader" uid="uid://8w6skcxoveqy" path="res://shaders/dither_screen.gdshader" id="1_x4r2e"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_x4r2e")
+shader_parameter/bias = 0.88
+shader_parameter/colorNum = 16.0

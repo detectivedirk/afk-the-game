@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://dylb85ih3tkyr" path="res://shaders/fog.gdshader" id="1_m2o7x"]
 
 [resource]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_m2o7x")
 shader_parameter/fog_color = Color(0.11497, 0.111488, 0.142957, 1)
 shader_parameter/fog_distance_min = 0.0
