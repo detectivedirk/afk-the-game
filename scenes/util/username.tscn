@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b30fuflem4gd2"]
+
+[ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="1_g6v10"]
+
+[node name="user" type="RichTextLabel"]
+offset_right = 109.0
+offset_bottom = 13.0
+mouse_filter = 2
+theme = ExtResource("1_g6v10")
+bbcode_enabled = true
+text = "username"
+scroll_active = false
+horizontal_alignment = 1

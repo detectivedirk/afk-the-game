@@ -5,7 +5,7 @@ var sensibility: float = 0.005
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_released("wheel_down"):
 		spring_length += 0.5
 	if Input.is_action_just_released("wheel_up"):

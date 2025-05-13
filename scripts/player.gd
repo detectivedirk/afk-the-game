@@ -23,7 +23,11 @@ var buffer_timer: float = 0
 @onready var camera = $camera_stand
 @onready var model = $model
 
+var username = "User"
+
 var camera_distance: float = 1
+
+var can_move = true
 	
 func get_jump_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
@@ -34,8 +38,9 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if is_multiplayer_authority():
 		camera.get_child(0).make_current()
+		Globals.player = self
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
@@ -44,14 +49,16 @@ func _physics_process(delta: float) -> void:
 	
 func _move_player(delta: float):
 	var movement_vector = Vector2.ZERO
-	if Input.is_action_pressed("forward"):
-		movement_vector += Vector2.UP
-	if Input.is_action_pressed("left"):
-		movement_vector += Vector2.LEFT
-	if Input.is_action_pressed("back"):
-		movement_vector += Vector2.DOWN
-	if Input.is_action_pressed("right"):
-		movement_vector += Vector2.RIGHT
+	
+	if can_move:
+		if Input.is_action_pressed("forward"):
+			movement_vector += Vector2.UP
+		if Input.is_action_pressed("left"):
+			movement_vector += Vector2.LEFT
+		if Input.is_action_pressed("back"):
+			movement_vector += Vector2.DOWN
+		if Input.is_action_pressed("right"):
+			movement_vector += Vector2.RIGHT
 		
 	movement_vector = movement_vector.rotated(-camera.rotation.y) * speed	
 	
@@ -68,7 +75,7 @@ func _move_player(delta: float):
 		velocity.y += get_jump_gravity() * delta
 
 	buffer_timer -= delta
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and can_move:
 		buffer_timer = BUFFER_TIME
 		
 	if buffer_timer > 0 and coyote_timer > 0:

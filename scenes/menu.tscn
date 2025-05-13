@@ -20,6 +20,15 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="username" type="LineEdit" parent="canvas/buttons"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 76.0
+offset_right = 136.0
+offset_bottom = 107.0
+theme_override_fonts/font = ExtResource("2_vjb58")
+placeholder_text = "USERNAME"
+
 [node name="host" type="Button" parent="canvas/buttons"]
 layout_mode = 0
 offset_left = 15.0

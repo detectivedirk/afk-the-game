@@ -6,14 +6,14 @@
 [node name="chat" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 140.0
+offset_right = 200.0
 offset_bottom = 111.0
 script = ExtResource("1_4o336")
 
 [node name="panel" type="ColorRect" parent="."]
 clip_contents = true
 layout_mode = 0
-offset_right = 140.0
+offset_right = 200.0
 offset_bottom = 80.0
 color = Color(0, 0, 0, 0.12549)
 

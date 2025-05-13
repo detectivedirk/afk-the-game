@@ -49,10 +49,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
 shape = SubResource("BoxShape3D_0wfyh")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://dccytfbr2n8nq")
-spawn_path = NodePath("..")
-
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D"]
@@ -82,4 +78,6 @@ mesh = SubResource("QuadMesh_tipki")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jyhfs")
 
-[node name="player" parent="." instance=ExtResource("6_tefeu")]
+[node name="players" type="Node3D" parent="."]
+
+[node name="player" parent="players" instance=ExtResource("6_tefeu")]
