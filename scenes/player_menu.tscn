@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://di76ex2kcoclp"]
+
+[ext_resource type="Script" uid="uid://c832rwnf6s7o7" path="res://scripts/player_menu.gd" id="1_vcu41"]
+[ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="2_f0r6v"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("1_vcu41")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.188235)
+
+[node name="resume" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 158.0
+offset_right = 138.0
+offset_bottom = 180.0
+theme = ExtResource("2_f0r6v")
+text = "resume"
+alignment = 0
+
+[node name="quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 188.0
+offset_right = 138.0
+offset_bottom = 210.0
+theme = ExtResource("2_f0r6v")
+text = "quit to menu"
+alignment = 0
+
+[connection signal="pressed" from="resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://clpoej8461vai"]
+
+[ext_resource type="Script" uid="uid://dcrfhypqhffwb" path="res://scripts/sfx_player.gd" id="1_fiegy"]
+
+[node name="sfx_player" type="AudioStreamPlayer3D"]
+script = ExtResource("1_fiegy")
+
+[node name="timer" type="Timer" parent="."]

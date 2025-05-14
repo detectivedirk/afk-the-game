@@ -12,3 +12,6 @@ func _on_host_pressed() -> void:
 func _on_join_pressed() -> void:
 	if username.text == "": return
 	Globals.join_server({"username" : username.text}, address.text)
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

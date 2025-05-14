@@ -9,7 +9,8 @@ func _init() -> void:
 	Globals.chat = self
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("chat"):
+	if Input.is_action_just_pressed("chat") and not Globals.is_paused and Globals.player.can_move:
+		input.release_focus()
 		input.grab_focus()
 		Globals.player.can_move = false
 
@@ -17,6 +18,9 @@ func _on_input_text_submitted(new_text: String) -> void:
 	chat_message.rpc("%s: %s" % [Globals.player_info["username"], new_text.c_escape()])
 	input.text = ""
 	input.release_focus()
+	Globals.player.can_move = true
+	
+func _on_input_focus_exited() -> void:
 	Globals.player.can_move = true
 	
 @rpc ("any_peer", "call_local")

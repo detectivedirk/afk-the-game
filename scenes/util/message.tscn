@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi0jfldqv7n64"]
+
+[ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="1_qs1l2"]
+
+[node name="message" type="RichTextLabel"]
+offset_right = 127.0
+offset_bottom = 15.0
+theme = ExtResource("1_qs1l2")
+text = "ладно парни я афк!"
+horizontal_alignment = 1

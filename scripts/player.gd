@@ -16,19 +16,28 @@ const TERMINAL_VELOCITY = 300
 var coyote_timer: float = 0
 var buffer_timer: float = 0
 
+var dead: bool = false
+
 @onready var jump_velocity : float = ((2.0 * JUMP_HEIGHT) / JUMP_TIME_TO_PEAK) * 1.0
 @onready var jump_gravity : float = ((-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_PEAK * JUMP_TIME_TO_PEAK)) * 1.0
 @onready var fall_gravity : float = ((-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCENT * JUMP_TIME_TO_DESCENT)) * 1.0
 
 @onready var camera = $camera_stand
 @onready var model = $model
+@onready var collider = $collider
+
+@onready var sfxplayer = $sfx_player
+@onready var listener = $listener
+
+@onready var head: RigidBody3D = $model/head
+@onready var torso: RigidBody3D = $model/torso
 
 var username = "User"
 
 var camera_distance: float = 1
 
 var can_move = true
-	
+
 func get_jump_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 	
@@ -37,6 +46,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	if is_multiplayer_authority():
+		listener.make_current()
 		camera.get_child(0).make_current()
 		Globals.player = self
 	
@@ -44,7 +54,7 @@ func _process(_delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and not dead:
 		_move_player(delta)
 	
 func _move_player(delta: float):
@@ -87,3 +97,50 @@ func _move_player(delta: float):
 		velocity.y = 0
 	
 	move_and_slide()
+	
+	if (movement_vector != Vector2.ZERO or Input.is_action_just_released("jump")) and not dead:
+		dead = true
+		await get_tree().create_timer(0.1).timeout
+		death()
+
+func reset():
+	head.position = Vector3(0, 1.35, 0)
+	head.rotation = Vector3.ZERO
+	
+	torso.position = Vector3(0, 0.5, 0)
+	torso.rotation = Vector3.ZERO
+
+func death():
+	can_move = false
+	
+	head.freeze = false
+	torso.freeze = false
+	
+	head.apply_impulse(Vector3(randf_range(-1, 1), randf_range(0, 2), randf_range(-1, 1)) * 5)
+	torso.apply_impulse(Vector3(randf_range(-1, 1), randf_range(0, 2), randf_range(-1, 1)) * 3)
+	
+	collider.disabled = true
+	head.get_node("shape").disabled = false
+	torso.get_node("shape").disabled = false
+	
+	Globals.chat.server_message.rpc("%s met their demise" % Globals.players[int(name)]["username"], "red")
+	play_death_animation()
+	
+	await get_tree().create_timer(2).timeout
+	Globals.spawn_player(self)
+	
+	head.get_node("shape").disabled = true
+	torso.get_node("shape").disabled = true
+	collider.disabled = false
+	
+	reset()
+	
+	head.freeze = true
+	torso.freeze = true
+	
+	can_move = true
+	
+	dead = false
+
+func play_death_animation():
+	sfxplayer.play_sound_multiplayer.rpc("rampage")

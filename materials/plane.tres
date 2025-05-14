@@ -1,8 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bn2xx3tp7iswi"]
-
-[ext_resource type="Texture2D" uid="uid://dq6um3k2mh1sy" path="res://textures/test.png" id="1_0apnm"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bn2xx3tp7iswi"]
 
 [resource]
-albedo_texture = ExtResource("1_0apnm")
+albedo_color = Color(0.4872, 0.536947, 0.56, 1)
 uv1_scale = Vector3(500, 500, 500)
 texture_filter = 0

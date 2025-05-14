@@ -1,16 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://dccytfbr2n8nq"]
+[gd_scene load_steps=11 format=3 uid="uid://dccytfbr2n8nq"]
 
 [ext_resource type="Script" uid="uid://ny5yjdj6p5qv" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://usfid76k8e4q" path="res://scripts/camera.gd" id="2_g2els"]
 [ext_resource type="ArrayMesh" uid="uid://els8pxox5y0s" path="res://models/meshes/head_test.res" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://clpoej8461vai" path="res://scenes/sfx_player.tscn" id="4_dqkch"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
+radius = 0.3
 
 [sub_resource type="SphereMesh" id="SphereMesh_g2els"]
 radius = 0.3
 height = 0.6
 
-[sub_resource type="SphereMesh" id="SphereMesh_qhqgy"]
-radius = 0.1
-height = 0.2
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dqkch"]
+height = 1.0
+radius = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_dqkch"]
 top_radius = 0.4
@@ -27,27 +31,51 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("model:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("model/head:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("model/head:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("model/torso:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("model/torso:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
 
 [node name="model" type="Node3D" parent="."]
 
-[node name="head" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37873, 0)
+[node name="head" type="RigidBody3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+freeze = true
+
+[node name="shape" type="CollisionShape3D" parent="model/head"]
+shape = SubResource("SphereShape3D_qhqgy")
+disabled = true
+
+[node name="head" type="MeshInstance3D" parent="model/head"]
 mesh = SubResource("SphereMesh_g2els")
-
-[node name="face" type="MeshInstance3D" parent="model/head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.259749)
-mesh = SubResource("SphereMesh_qhqgy")
-
-[node name="torso" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_dqkch")
 skeleton = NodePath("../..")
+
+[node name="torso" type="RigidBody3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+freeze = true
+
+[node name="shape" type="CollisionShape3D" parent="model/torso"]
+shape = SubResource("CylinderShape3D_dqkch")
+disabled = true
+
+[node name="torso" type="MeshInstance3D" parent="model/torso"]
+mesh = SubResource("CylinderMesh_dqkch")
+skeleton = NodePath("../../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.396525, 0)
+visible = false
 light_color = Color(0.937595, 0.756286, 0, 1)
 light_energy = 2.0
 omni_range = 10.0
@@ -71,3 +99,7 @@ script = ExtResource("2_g2els")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g2els")
+
+[node name="sfx_player" parent="." instance=ExtResource("4_dqkch")]
+
+[node name="listener" type="AudioListener3D" parent="."]

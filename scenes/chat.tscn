@@ -43,4 +43,5 @@ virtual_keyboard_enabled = false
 flat = true
 caret_blink = true
 
+[connection signal="focus_exited" from="input" to="." method="_on_input_focus_exited"]
 [connection signal="text_submitted" from="input" to="." method="_on_input_text_submitted"]

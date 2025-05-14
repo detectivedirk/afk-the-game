@@ -12,15 +12,17 @@ const MAX_CONNECTIONS = 20
 
 var players = {}
 var player_info = {"username": "Player"}
-var players_loaded = 0
-
 
 @onready var player_scene = preload("res://scenes/player.tscn")
 
 var current_scene: Node = null
 
+var is_paused: bool = false
+
 var chat: Node = null
 var player: CharacterBody3D = null
+
+var spawn_radius = 10
 
 func _ready():
 	var root = get_tree().root
@@ -119,7 +121,24 @@ func _add_player(id, _new_player_info):
 	new_player.username = "Player"
 	current_scene.get_node("players").add_child(new_player)
 	
+	spawn_player(new_player)
+	
+func spawn_player(object):
+	object.position.x = randf_range(-spawn_radius, spawn_radius)
+	object.position.z = randf_range(-spawn_radius, spawn_radius)
+	
 func _remove_player(id):
 	var old_player = current_scene.get_node("players").get_node_or_null(str(id))
 	if old_player:
 		old_player.queue_free()
+		
+func reset_data():
+	multiplayer.multiplayer_peer = null
+	player = null
+	chat = null
+	player_info.clear()
+	players.clear()
+
+func return_to_menu():
+	goto_scene("res://scenes/menu.tscn")
+	reset_data.call_deferred()
