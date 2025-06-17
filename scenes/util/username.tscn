@@ -1,13 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://b30fuflem4gd2"]
+[gd_scene load_steps=6 format=3 uid="uid://b30fuflem4gd2"]
 
 [ext_resource type="Theme" uid="uid://bch4uf7m0nyoc" path="res://materials/simple.tres" id="1_g6v10"]
+[ext_resource type="Script" uid="uid://dotxov2pf6ao2" path="res://resources/bbcode/matrix.gd" id="2_n4301"]
+[ext_resource type="Script" uid="uid://286rdy8aonyr" path="res://resources/bbcode/weave.gd" id="3_pv7kx"]
 
-[node name="user" type="RichTextLabel"]
-offset_right = 109.0
-offset_bottom = 13.0
+[sub_resource type="RichTextEffect" id="RichTextEffect_pv7kx"]
+script = ExtResource("2_n4301")
+metadata/_custom_type_script = "uid://dotxov2pf6ao2"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_8kyri"]
+script = ExtResource("3_pv7kx")
+metadata/_custom_type_script = "uid://286rdy8aonyr"
+
+[node name="user" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1.0
+offset_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("1_g6v10")
+
+[node name="name" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -17.0
+offset_right = 55.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 theme = ExtResource("1_g6v10")
 bbcode_enabled = true
 text = "username"
 scroll_active = false
 horizontal_alignment = 1
+
+[node name="rank" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = -7.0
+offset_right = 55.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("1_g6v10")
+bbcode_enabled = true
+text = "[weave amp=2 dist=0.1 speed=3]rank"
+scroll_active = false
+horizontal_alignment = 1
+custom_effects = [SubResource("RichTextEffect_pv7kx"), SubResource("RichTextEffect_8kyri")]

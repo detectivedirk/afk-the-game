@@ -18,14 +18,18 @@ config/icon="res://sprites/icon.svg"
 [autoload]
 
 Globals="*res://scripts/globals.gd"
+Values="*res://scripts/util/values.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=4
+window/size/mode=3
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+
+[global_group]
+
+player=""
 
 [input]
 

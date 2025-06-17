@@ -6,6 +6,12 @@ signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
 
+signal afk_progress(progress)
+
+signal reward_get
+
+signal data_updated(id, info)
+
 const PORT = 99
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNECTIONS = 20
@@ -36,6 +42,8 @@ func _ready():
 	
 	player_connected.connect(_add_player)
 	player_disconnected.connect(_remove_player)
+	
+	data_updated.connect(_Update_data)
 
 func host_server(new_player_info):
 	player_info = new_player_info
@@ -54,6 +62,9 @@ func host_server(new_player_info):
 	
 	players[1] = new_player_info
 	player_connected.emit.call_deferred(1, player_info)
+	
+func _Update_data(id, info):
+	players[id] = info
 	
 func join_server(new_player_info, address = ""):
 	player_info = new_player_info

@@ -44,12 +44,12 @@ properties/5/path = NodePath("model/torso:rotation")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_3vyb7")
 
 [node name="model" type="Node3D" parent="."]
 
-[node name="head" type="RigidBody3D" parent="model"]
+[node name="head" type="RigidBody3D" parent="model" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
 freeze = true
 
@@ -61,7 +61,7 @@ disabled = true
 mesh = SubResource("SphereMesh_g2els")
 skeleton = NodePath("../..")
 
-[node name="torso" type="RigidBody3D" parent="model"]
+[node name="torso" type="RigidBody3D" parent="model" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 freeze = true
 

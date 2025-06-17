@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://db4yaualf3xtb"]
+[gd_scene load_steps=17 format=3 uid="uid://db4yaualf3xtb"]
 
 [ext_resource type="Material" uid="uid://bn2xx3tp7iswi" path="res://materials/plane.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://x7sforgm0rim" path="res://scripts/main.gd" id="1_sugp2"]
@@ -7,6 +7,9 @@
 [ext_resource type="Material" uid="uid://ulyurujt7l3g" path="res://materials/general_purpose.tres" id="5_o6xl0"]
 [ext_resource type="Material" uid="uid://bq8hegomi4hkb" path="res://materials/fog.tres" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dccytfbr2n8nq" path="res://scenes/player.tscn" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://dkt13mmsgxacq" path="res://scripts/util/music_player.gd" id="9_85g3d"]
+[ext_resource type="AudioStream" uid="uid://lj4gtjfv7j6u" path="res://sounds/matrix.ogg" id="9_choun"]
+[ext_resource type="PackedScene" uid="uid://bk4owxrnqd58u" path="res://scenes/particles/firework.tscn" id="10_choun"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0wfyh"]
 material = ExtResource("1_o5qli")
@@ -39,20 +42,37 @@ volumetric_fog_sky_affect = 0.5
 [node name="main" type="Node3D"]
 script = ExtResource("1_sugp2")
 
+[node name="logic" type="Node3D" parent="."]
+
+[node name="afk_timer" type="Timer" parent="logic"]
+wait_time = 5.0
+autostart = true
+
 [node name="plane" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_0wfyh")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="plane"]
+[node name="area" type="StaticBody3D" parent="plane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 3
+collision_mask = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="plane/StaticBody3D"]
+[node name="collider" type="CollisionShape3D" parent="plane/area"]
 visible = false
 shape = SubResource("BoxShape3D_0wfyh")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="UI" parent="." instance=ExtResource("3_sugp2")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.849193, 0.528083, 0, -0.528083, 0.849193, 0, 2.22248, 7.28112)
+[node name="players" type="Node3D" parent="."]
+
+[node name="player" parent="players" instance=ExtResource("6_tefeu")]
+visible = false
+
+[node name="coins" type="Node3D" parent="."]
+
+[node name="light" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="light"]
+transform = Transform3D(1, 0, 0, 0, 0.849193, 0.528083, 0, -0.528083, 0.849193, 0, 0, 0)
 light_color = Color(0.926503, 0.703004, 0.483096, 1)
 light_energy = 0.5
 
@@ -73,11 +93,15 @@ visible = false
 extra_cull_margin = 10000.0
 mesh = SubResource("QuadMesh_tipki")
 
-[node name="UI" parent="." instance=ExtResource("3_sugp2")]
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_choun")
+volume_db = -20.0
+autoplay = true
+script = ExtResource("9_85g3d")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="env" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jyhfs")
 
-[node name="players" type="Node3D" parent="."]
+[node name="particles" parent="." instance=ExtResource("10_choun")]
 
-[node name="player" parent="players" instance=ExtResource("6_tefeu")]
+[connection signal="finished" from="music_player" to="music_player" method="_on_finished"]

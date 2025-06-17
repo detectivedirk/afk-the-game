@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://c86g1b3dhd4qh"]
+
+[ext_resource type="Texture2D" uid="uid://cbv7o1cnut85m" path="res://textures/simple_border.png" id="1_bdarc"]
+[ext_resource type="Script" uid="uid://ceixuuayf85we" path="res://scripts/util/bar.gd" id="2_rfnqx"]
+
+[node name="bar" type="NinePatchRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -28.0
+offset_right = 180.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_bdarc")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+script = ExtResource("2_rfnqx")
+
+[node name="progress" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 6.0

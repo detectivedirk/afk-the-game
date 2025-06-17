@@ -7,11 +7,19 @@ extends Control
 
 func _on_host_pressed() -> void:
 	if username.text == "": return
-	Globals.host_server({"username" : username.text})
+	Globals.host_server(_init_player())
 	
 func _on_join_pressed() -> void:
 	if username.text == "": return
-	Globals.join_server({"username" : username.text}, address.text)
+	Globals.join_server(_init_player(), address.text)
+	
+func _init_player() -> Dictionary:
+	return {
+		"username" : username.text, 
+		"exp" : 0,
+		"coins" : 0,
+		"rank" : Values.Rank.NOOB
+	}
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

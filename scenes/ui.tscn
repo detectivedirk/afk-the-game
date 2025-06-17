@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvdoa6xrkiirl"]
+[gd_scene load_steps=6 format=3 uid="uid://cvdoa6xrkiirl"]
 
 [ext_resource type="PackedScene" uid="uid://blno3bw332abc" path="res://scenes/chat.tscn" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://cx8ttpukijq1p" path="res://scripts/usernames.gd" id="1_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://di76ex2kcoclp" path="res://scenes/player_menu.tscn" id="3_yev5y"]
+[ext_resource type="Script" uid="uid://cda82y6gnldd8" path="res://scripts/leaderboard.gd" id="4_gdt2y"]
+[ext_resource type="PackedScene" uid="uid://c86g1b3dhd4qh" path="res://scenes/util/bar.tscn" id="5_wm3ai"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -30,3 +32,27 @@ offset_bottom = 119.0
 
 [node name="menu" parent="canvas" instance=ExtResource("3_yev5y")]
 visible = false
+
+[node name="leaderboard" type="Control" parent="canvas"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 108.0
+grow_horizontal = 0
+script = ExtResource("4_gdt2y")
+
+[node name="panel" type="ColorRect" parent="canvas/leaderboard"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.12549)
+
+[node name="bar" parent="canvas" instance=ExtResource("5_wm3ai")]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://6k70axcx1231"]
+
+[ext_resource type="Script" uid="uid://cauo21qytkkxo" path="res://scripts/util/coin.gd" id="1_i64fm"]
+[ext_resource type="ArrayMesh" uid="uid://cynf6nnfljrep" path="res://models/meshes/coin.res" id="1_rwqht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i64fm"]
+size = Vector3(0.6, 0.6, 0.3)
+
+[sub_resource type="Animation" id="Animation_i64fm"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_rwqht"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i64fm"]
+_data = {
+&"RESET": SubResource("Animation_i64fm"),
+&"spin": SubResource("Animation_rwqht")
+}
+
+[node name="coin" type="Area3D"]
+script = ExtResource("1_i64fm")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_i64fm")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0)
+mesh = ExtResource("1_rwqht")
+
+[node name="player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i64fm")
+}
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false
+light_color = Color(0.553103, 0.716867, 0.979252, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

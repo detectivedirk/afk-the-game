@@ -32,11 +32,15 @@ var dead: bool = false
 @onready var head: RigidBody3D = $model/head
 @onready var torso: RigidBody3D = $model/torso
 
+var firework = preload("res://scenes/particles/firework.tscn")
+
 var username = "User"
 
 var camera_distance: float = 1
 
 var can_move = true
+
+var game: Game
 
 func get_jump_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
@@ -45,6 +49,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
+	game = Globals.current_scene
 	if is_multiplayer_authority():
 		listener.make_current()
 		camera.get_child(0).make_current()
@@ -98,7 +103,7 @@ func _move_player(delta: float):
 	
 	move_and_slide()
 	
-	if (movement_vector != Vector2.ZERO or Input.is_action_just_released("jump")) and not dead:
+	if (movement_vector != Vector2.ZERO or Input.is_action_just_released("jump")) and not dead and can_move:
 		dead = true
 		await get_tree().create_timer(0.1).timeout
 		death()
@@ -123,6 +128,8 @@ func death():
 	head.get_node("shape").disabled = false
 	torso.get_node("shape").disabled = false
 	
+	game.afk_timer.stop()
+	
 	Globals.chat.server_message.rpc("%s met their demise" % Globals.players[int(name)]["username"], "red")
 	play_death_animation()
 	
@@ -134,6 +141,7 @@ func death():
 	collider.disabled = false
 	
 	reset()
+	game.afk_timer.start()
 	
 	head.freeze = true
 	torso.freeze = true
@@ -141,6 +149,30 @@ func death():
 	can_move = true
 	
 	dead = false
+	
+func collect_coin():
+	var id = multiplayer.get_unique_id()
+	var info = Globals.players[id]
+	info["coins"] += 1
+	
+	Globals.data_updated.emit(id, info)
+	
+	sfxplayer.play_sound_multiplayer.rpc("coin")
 
 func play_death_animation():
 	sfxplayer.play_sound_multiplayer.rpc("rampage")
+	
+func launch_firework():
+	var particle: GPUParticles3D = firework.instantiate()
+	add_child(particle)
+	particle.emitting = true
+	await get_tree().create_timer(2).timeout
+	particle.queue_free()
+
+func celebration():
+	sfxplayer.play_sound_multiplayer.rpc("firework")
+	for i in range(3):
+		sfxplayer.play_sound_multiplayer("bonus2")
+		launch_firework()
+		Globals.reward_get.emit()
+		await get_tree().create_timer(0.225).timeout

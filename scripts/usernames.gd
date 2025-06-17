@@ -12,15 +12,24 @@ func _process(_delta: float) -> void:
 		if !user: continue
 		control.visible = not get_viewport().get_camera_3d().is_position_behind(user.global_position)
 		control.position = get_viewport().get_camera_3d().unproject_position(user.global_position + \
-		Vector3(0, 2, 0)) - \
-		Vector2(control.get_content_width() * 0.5, 0)
+		Vector3(0, 2, 0))
 		
 func _add_username(id, _player_info):
-	var control: RichTextLabel = username_scene.instantiate()
+	var control: Control = username_scene.instantiate()
 	add_child(control)
-	control.text = Globals.players[id]["username"]
-	control.size.x = control.get_content_width()
 	control.name = str(id)
+	
+	var username : RichTextLabel = control.get_node("name")
+	username.text = Globals.players[id]["username"]
+	
+	var rank : RichTextLabel = control.get_node("rank")
+	
+	rank.text = "[color=%s][weave amp=2 dist=0.1 speed=3]%s" % \
+	[ "sky_blue", Values.rank_to_label[Globals.players[id]["rank"]] ]
+	rank.pop_all()
+
+func _update_username(_id, _info):
+	pass
 
 func _remove_username(id):
 	get_node(str(id)).queue_free()
