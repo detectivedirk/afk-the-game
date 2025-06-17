@@ -169,8 +169,9 @@ func launch_firework():
 	await get_tree().create_timer(2).timeout
 	particle.queue_free()
 
+@rpc ("any_peer", "call_local")
 func celebration():
-	sfxplayer.play_sound_multiplayer.rpc("firework")
+	sfxplayer.play_sound_multiplayer("firework")
 	for i in range(3):
 		sfxplayer.play_sound_multiplayer("bonus2")
 		launch_firework()

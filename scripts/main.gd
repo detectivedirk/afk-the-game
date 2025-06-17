@@ -11,7 +11,7 @@ var coin_spawn_radius = 15
 var coin_spawn_interval = 10
 
 func _ready():
-	spawn_coin.rpc()
+	#spawn_coin.rpc()
 	afk_timer.timeout.connect(afk_next)
 	
 func _process(_delta: float) -> void:
@@ -26,9 +26,9 @@ func afk_next():
 	var info = Globals.players[id]
 	
 	info["exp"] += 1
-	Globals.data_updated.emit(id, info)
+	Globals._global_update.rpc(id, info)
 	
-	Globals.player.celebration()
+	Globals.player.celebration.rpc()
 
 @rpc("any_peer", "call_local")
 func spawn_coin():

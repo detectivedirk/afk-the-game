@@ -43,7 +43,7 @@ func _ready():
 	player_connected.connect(_add_player)
 	player_disconnected.connect(_remove_player)
 	
-	data_updated.connect(_Update_data)
+	data_updated.connect(_update_data)
 
 func host_server(new_player_info):
 	player_info = new_player_info
@@ -63,8 +63,12 @@ func host_server(new_player_info):
 	players[1] = new_player_info
 	player_connected.emit.call_deferred(1, player_info)
 	
-func _Update_data(id, info):
+func _update_data(id, info):
 	players[id] = info
+	
+@rpc ("any_peer", "call_local")
+func _global_update(id, info):
+	data_updated.emit(id, info)
 	
 func join_server(new_player_info, address = ""):
 	player_info = new_player_info
