@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://db4yaualf3xtb"]
+[gd_scene load_steps=20 format=3 uid="uid://db4yaualf3xtb"]
 
 [ext_resource type="Material" uid="uid://bn2xx3tp7iswi" path="res://materials/plane.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://x7sforgm0rim" path="res://scripts/main.gd" id="1_sugp2"]
@@ -38,6 +38,18 @@ background_mode = 1
 background_color = Color(4.81307e-07, 0.444029, 0.685621, 1)
 volumetric_fog_density = 0.1
 volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_choun"]
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 100)
+gravity = Vector3(0, -1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya4ey"]
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_eb6dy"]
+material = SubResource("StandardMaterial3D_ya4ey")
+size = Vector2(0.1, 0.1)
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_sugp2")
@@ -103,5 +115,12 @@ script = ExtResource("9_85g3d")
 environment = SubResource("Environment_jyhfs")
 
 [node name="particles" parent="." instance=ExtResource("10_choun")]
+
+[node name="snow" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.24359, 0)
+amount = 10000
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_choun")
+draw_pass_1 = SubResource("QuadMesh_eb6dy")
 
 [connection signal="finished" from="music_player" to="music_player" method="_on_finished"]

@@ -16,9 +16,18 @@ script = ExtResource("1_yqeox")
 
 [node name="buttons" type="Control" parent="canvas"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -140.5
+offset_right = 76.0
+offset_bottom = 140.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 
 [node name="username" type="LineEdit" parent="canvas/buttons"]
 layout_mode = 0
@@ -29,12 +38,21 @@ offset_bottom = 107.0
 theme_override_fonts/font = ExtResource("2_vjb58")
 placeholder_text = "USERNAME"
 
+[node name="address" type="LineEdit" parent="canvas/buttons"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 110.5
+offset_right = 136.0
+offset_bottom = 141.5
+theme_override_fonts/font = ExtResource("2_vjb58")
+placeholder_text = "ADDRESS"
+
 [node name="host" type="Button" parent="canvas/buttons"]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 117.0
+offset_top = 151.5
 offset_right = 135.0
-offset_bottom = 137.0
+offset_bottom = 171.5
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_vjb58")
 text = "HOST
@@ -43,22 +61,13 @@ text = "HOST
 [node name="join" type="Button" parent="canvas/buttons"]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 139.0
+offset_top = 173.5
 offset_right = 135.0
-offset_bottom = 159.0
+offset_bottom = 193.5
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_vjb58")
 text = "JOIN
 "
-
-[node name="address" type="LineEdit" parent="canvas/buttons"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 164.0
-offset_right = 136.0
-offset_bottom = 195.0
-theme_override_fonts/font = ExtResource("2_vjb58")
-placeholder_text = "ADDRESS"
 
 [node name="quit" type="Button" parent="canvas/buttons"]
 layout_mode = 0
